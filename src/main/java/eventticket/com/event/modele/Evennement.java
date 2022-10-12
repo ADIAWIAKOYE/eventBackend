@@ -21,15 +21,15 @@ public class Evennement {
     @Id//permet de prendre id_evennement comme id de cette table
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long id_evennement;
-    private String nom_evennement;
-    private String desciption_evennement;
-    private Date date_start;
-    private LocalTime time_start;
-    private Date date_end;
-    private LocalTime time_end;
+    private Long idevent;
+    private String nom;
+    private String desciption;
+    private Date dateStart;
+    private LocalTime timeStart;
+    private Date dateEnd;
+    private LocalTime timeEnd;
     private String affiche;
-    private int nbre_ticket_dispo;
-    private Boolean ticket_dispo;
-    private String categorie_evennement;
+    private int nbreTicketDispo;
+    private Boolean ticketDispo;
+    private String categorie;
 }

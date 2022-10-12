@@ -20,8 +20,8 @@ public class CategorieTicket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //id de la table CategorieTicket
-    private long id_categorieticket;
-    private String descriptioncategorieticket;
-    private int prixcategorieticket;
+    private Long idcategorie;
+    private String description;
+    private int prixcat;
     private int nbrticket;
 }

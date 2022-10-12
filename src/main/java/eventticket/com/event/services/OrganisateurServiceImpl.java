@@ -1,4 +1,4 @@
 package eventticket.com.event.services;
 
-public class OrganisateurServiceImpl {
+public class OrganisateurServiceImpl implements OrganisateurService{
 }

@@ -17,7 +17,7 @@ public class ClientVenu {
     @Id//permet de prendre id_clientvenu comme id de cette table
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //id de la table clientvenu
-    private Long id_clientvenu;
+    private Long idclientvenu;
 
     //relation entre la table postulant trié et tirage
     /* @ManyToOne

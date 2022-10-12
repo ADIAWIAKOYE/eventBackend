@@ -20,6 +20,6 @@ public class Acteur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //id de l'Acteur
-    private long id_acteur;
-    private String nom_acteur;
+    private Long idacteur;
+    private String nom;
 }

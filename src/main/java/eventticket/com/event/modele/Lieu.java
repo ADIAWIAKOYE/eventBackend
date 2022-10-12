@@ -19,9 +19,9 @@ public class Lieu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //id de la table lieu
-    private long id_lieu;
-    private String nom_lieu;
+    private Long idlieu;
+    private String nom;
     private String localisation;
     private String adress;
-    private int nbr_places;
+    private int nbrPlaces;
 }

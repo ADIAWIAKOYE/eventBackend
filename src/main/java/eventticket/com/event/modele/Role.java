@@ -18,6 +18,6 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //id de la etat
-    private long id_role;
-    private String nom_role;
+    private Long idrole;
+    private String nomrole;
 }

@@ -19,6 +19,6 @@ public class Avis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //id de l'AVIS
-    private long id_avis;
-    private String Contenu_avis;
+    private Long idavis;
+    private String Contenu;
 }

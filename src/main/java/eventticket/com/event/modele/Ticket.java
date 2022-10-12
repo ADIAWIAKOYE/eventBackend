@@ -20,7 +20,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //id de la table ticket
-    private long id_ticket;
-    private String num_serie;
-    private Date date_achat;
+    private Long idticket;
+    private String numserie;
+    private Date dateachat;
 }

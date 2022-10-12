@@ -19,6 +19,6 @@ public class Etat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     //id de la etat
-    private long id_etat;
-    private String contenu_etet;
+    private Long idetat;
+    private String contenu;
 }
