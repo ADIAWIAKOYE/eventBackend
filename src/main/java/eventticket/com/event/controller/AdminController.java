@@ -1,13 +1,18 @@
 package eventticket.com.event.controller;
 
+import eventticket.com.event.Image.ComfigImage;
 import eventticket.com.event.message.ReponseMessage;
 import eventticket.com.event.modele.Etat;
 import eventticket.com.event.modele.Role;
 import eventticket.com.event.modele.User;
 import eventticket.com.event.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -54,10 +59,22 @@ public class AdminController {
 
 
     //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN UTILISATEUR======================
-    @PostMapping("/ajouterUser")
-    public ReponseMessage creerUser(@RequestBody User user){
-
-        return adminService.ajouterUtilisateur(user);
+    @PostMapping("/ajouterUser/{nomrole}")
+    public ReponseMessage creerUserI(@Param("nom") String nom, @Param("prenom") String prenom, @Param("numero") String numero
+            , @Param("email") String email, @Param("pseudo") String pseudo, @Param("password") String password
+            , @Param("file") MultipartFile fileUser , @PathVariable String nomrole)throws IOException {
+        User user = new User();
+        String nomfileUser = StringUtils.cleanPath(fileUser.getOriginalFilename());
+        user.setNom(nom);
+        user.setPrenom(prenom);
+        user.setNumero(numero);
+        user.setEmail(email);
+        user.setPseudo(pseudo);
+        user.setPassword(password);
+        user.setProfile(nomfileUser);
+        String uploaDirUser = "src/main/resources/fileUser/";
+        ComfigImage.saveimgUser(uploaDirUser, nomfileUser, fileUser);
+        return adminService.ajouterUtilisateurU(user, nomrole);
     }//================FIN DE LA METHODE PERMETTANT D'AJOUTER UN UTILISATEUR======================
 
 
@@ -131,4 +148,23 @@ public class AdminController {
     public List<Etat> afficherEtat() {
         return adminService.afficherEtat();
     }//================DEBUT DE LA METHODE PERMETTANT D'AFFICHER LES ETATS ENREGISTRES======================
+
+   /* @PostMapping("/ajouterUser/{nomrole}")
+    public ReponseMessage creerUserI(@Param("nom") String nom, @Param("prenom") String prenom, @Param("numero") String numero
+            , @Param("email") String email, @Param("pseudo") String pseudo, @Param("password") String password
+            , @Param("file") MultipartFile fileUser , @PathVariable String nomrole)throws IOException {
+               User user = new User();
+        String nomfileUser = StringUtils.cleanPath(fileUser.getOriginalFilename());
+        user.setNom(nom);
+        user.setPrenom(prenom);
+        user.setNumero(numero);
+        user.setEmail(email);
+        user.setPseudo(pseudo);
+        user.setPassword(password);
+        user.setProfile(nomfileUser);
+        String uploaDirUser = "src/main/resources/fileUser/";
+        ComfigImage.saveimgUser(uploaDirUser, nomfileUser, fileUser);
+        return adminService.ajouterUtilisateurU(user, nomrole);
+    }*/
+
 }

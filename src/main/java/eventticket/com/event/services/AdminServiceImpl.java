@@ -89,9 +89,22 @@ public class AdminServiceImpl implements AdminService {
 
     //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN USER======================
     @Override
-    public ReponseMessage ajouterUtilisateur(User user) {
+    public ReponseMessage ajouterUtilisateurU(User user, String nomrole) {
         if (userRepo.findByEmail(user.getEmail()) == null){
-            userRepo.save(user);
+            Role role = new Role();
+
+            if (roleRepo.findByNomrole(nomrole) == null){
+
+                ReponseMessage message = new ReponseMessage("Cet role n'existe pas  ", false);
+
+                return message;
+
+            }else {
+                role=roleRepo.findByNomrole(nomrole);
+                user.setRole(role);
+                userRepo.save(user);
+            }
+
             ReponseMessage message = new ReponseMessage("utilisateur ajouté avec succes", true);
             return  message;
         }else {
@@ -100,6 +113,8 @@ public class AdminServiceImpl implements AdminService {
             return message;
         }
     }//================FIN DE LA METHODE PERMETTANT D'AJOUTER UN USER======================
+
+
 
     //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER UN USER======================
     @Override

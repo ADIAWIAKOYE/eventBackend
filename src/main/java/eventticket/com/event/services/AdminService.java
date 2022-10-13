@@ -30,7 +30,8 @@ public interface AdminService {
 
 
     //================METHODE PERMETTANT D'AJOUTER UN USER=========================
-    ReponseMessage ajouterUtilisateur(User user);
+
+    ReponseMessage ajouterUtilisateurU(User user, String nomrole);
 
     //================METHODE PERMETTANT DE MODIFIER UN USER=========================
     ReponseMessage modifierUtilisateur(User user, Long iduser);
