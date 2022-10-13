@@ -123,7 +123,7 @@ public class AdminController {
     @DeleteMapping("/supprimerEtat/{idetat}")
     public ReponseMessage supprimerEtat(@PathVariable Long idetat) {
 
-        return adminService.supprimerRole(idetat);
+        return adminService.supprimerEtat(idetat);
     }//================FIN DE LA METHODE PERMETTANT DE SUPPRIMER UN ETAT======================
 
     //================DEBUT DE LA METHODE PERMETTANT D'AFFICHER LES ETATS ENREGISTRES======================
