@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //transforme cette classe en table
 @Entity
@@ -22,4 +24,20 @@ public class Acteur {
     //id de l'Acteur
     private Long idacteur;
     private String nom;
+
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+
+    @JoinTable(
+            name="Evennement_Acteur",
+            joinColumns = @JoinColumn(name = "idacteur"),
+            inverseJoinColumns = @JoinColumn(name = "idevent")
+    )
+
+    private List<Evennement> evennements = new ArrayList<>();
 }

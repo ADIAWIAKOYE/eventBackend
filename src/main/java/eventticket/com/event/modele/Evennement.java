@@ -6,7 +6,9 @@ import org.apache.naming.java.javaURLContextFactory;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 
 //transforme cette classe en table
@@ -32,4 +34,20 @@ public class Evennement {
     private int nbreTicketDispo;
     private Boolean ticketDispo;
     private String categorie;
+
+
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+
+    @JoinTable(
+            name="Evennement_Acteur",
+            joinColumns = @JoinColumn(name = "idevent"),
+            inverseJoinColumns = @JoinColumn(name = "idacteur")
+    )
+
+    private List<Acteur> acteurs = new ArrayList<>();
 }
