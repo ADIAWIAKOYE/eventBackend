@@ -2,9 +2,7 @@ package eventticket.com.event.controller;
 
 import eventticket.com.event.Image.ComfigImage;
 import eventticket.com.event.message.ReponseMessage;
-import eventticket.com.event.modele.Etat;
-import eventticket.com.event.modele.Role;
-import eventticket.com.event.modele.User;
+import eventticket.com.event.modele.*;
 import eventticket.com.event.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -147,24 +145,71 @@ public class AdminController {
     @GetMapping("/afficherEtat")
     public List<Etat> afficherEtat() {
         return adminService.afficherEtat();
-    }//================DEBUT DE LA METHODE PERMETTANT D'AFFICHER LES ETATS ENREGISTRES======================
+    }//================FIN DE LA METHODE PERMETTANT D'AFFICHER LES ETATS ENREGISTRES======================
 
-   /* @PostMapping("/ajouterUser/{nomrole}")
-    public ReponseMessage creerUserI(@Param("nom") String nom, @Param("prenom") String prenom, @Param("numero") String numero
-            , @Param("email") String email, @Param("pseudo") String pseudo, @Param("password") String password
-            , @Param("file") MultipartFile fileUser , @PathVariable String nomrole)throws IOException {
-               User user = new User();
-        String nomfileUser = StringUtils.cleanPath(fileUser.getOriginalFilename());
-        user.setNom(nom);
-        user.setPrenom(prenom);
-        user.setNumero(numero);
-        user.setEmail(email);
-        user.setPseudo(pseudo);
-        user.setPassword(password);
-        user.setProfile(nomfileUser);
-        String uploaDirUser = "src/main/resources/fileUser/";
-        ComfigImage.saveimgUser(uploaDirUser, nomfileUser, fileUser);
-        return adminService.ajouterUtilisateurU(user, nomrole);
-    }*/
+    //================FIN DE LA GESTION DES ETATS ======================
 
+
+    //================DEBUT DE LA GESTION DES ACTEURS======================
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN ACTEUR======================
+    @PostMapping("/ajouterActeur")
+    public ReponseMessage ajouterActeur(@RequestBody Acteur acteur){
+
+        return adminService.ajouterActeur(acteur);
+    }//================FIN DE LA METHODE PERMETTANT D'AJOUTER UN ACTEUR======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER UN ACTEUR======================
+    @PutMapping("/modifierActeur/{idacteur}")
+    public ReponseMessage modifierActeur(@RequestBody Acteur acteur, @PathVariable Long idacteur){
+
+        return adminService.modifierActeur(acteur, idacteur);
+    }//================FIN DE LA METHODE PERMETTANT DE MODIFIER UN ACTEUR======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE SUPPRIMER UN ACTEUR======================
+    @DeleteMapping("/supprimerActeur/{idacteur}")
+    public ReponseMessage supprimerActeur(@PathVariable Long idacteur){
+
+        return adminService.supprimerActeur(idacteur);
+    }//================FIN DE LA METHODE PERMETTANT DE SUPPRIMER UN ACTEUR======================
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AFFICHER LES ACTEURS DE LA BASE DE DONNER======================
+    @GetMapping("/afficherActeur")
+    public List<Acteur> afficherActeur(){
+
+        return adminService.afficherActeur();
+    }//================FIN DE LA METHODE PERMETTANT D'AFFICHER LES ACTEURS DE LA BASE DE DONNER======================
+
+    //================FIN DE LA GESTION DES ACTEURS ======================
+
+
+    //================DEBUT DE LA GESTION DES LIEUS======================
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN LIEU======================
+    @PostMapping("/ajouterLieu")
+    public ReponseMessage ajouterLieu(@RequestBody Lieu lieu){
+
+        return adminService.ajouterLieu(lieu);
+    }//================FIN DE LA METHODE PERMETTANT D'AJOUTER UN LIEU======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER UN LIEU======================
+    @PutMapping("/modifierLieu/{idlieu}")
+    public ReponseMessage modifierLieu(@RequestBody Lieu lieu, @PathVariable Long idlieu){
+
+        return adminService.modifierLieu(lieu, idlieu);
+    }//================FIN DE LA METHODE PERMETTANT DE MODIFIER UN LIEU======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE SUPPRIMER UN LIEU======================
+    @DeleteMapping("/supprimerLieu/{idlieu}")
+    public ReponseMessage supprimerLieu(@PathVariable Long idlieu){
+
+        return adminService.supprimerLieu(idlieu);
+    }//================FIN DE LA METHODE PERMETTANT DE SUPPRIMER UN LIEU======================
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AFFICHER LES LIEUS DE LA BASE DE DONNER=========================
+    @GetMapping("/afficherLieu")
+    public List<Lieu> afficherLieu(){
+
+        return adminService.afficherLieu();
+    }//================FIN DE LA METHODE PERMETTANT D'AFFICHER LES LIEUS DE LA BASE DE DONNER=========================
 }

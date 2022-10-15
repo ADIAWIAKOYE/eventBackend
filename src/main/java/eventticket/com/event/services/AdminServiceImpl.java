@@ -1,12 +1,8 @@
 package eventticket.com.event.services;
 
 import eventticket.com.event.message.ReponseMessage;
-import eventticket.com.event.modele.Etat;
-import eventticket.com.event.modele.Role;
-import eventticket.com.event.modele.User;
-import eventticket.com.event.repository.EtatRepo;
-import eventticket.com.event.repository.RoleRepo;
-import eventticket.com.event.repository.UserRepo;
+import eventticket.com.event.modele.*;
+import eventticket.com.event.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +20,18 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private EtatRepo etatRepo;
 
+    @Autowired
+    private ActeurRepo acteurRepo;
+
+    @Autowired
+    private LieuRepo lieuRepo;
+
     //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN ROLE======================
     @Override
     public ReponseMessage ajouterRole(Role role) {
         if (roleRepo.findByNomrole(role.getNomrole()) == null){
             roleRepo.save(role);
+
             ReponseMessage message = new ReponseMessage("Rôle ajouté avec succes", true);
             return  message;
         }else {
@@ -45,6 +48,7 @@ public class AdminServiceImpl implements AdminService {
         Role updateRole = roleRepo.findById(idrole).get();
         updateRole.setNomrole(role.getNomrole());
         roleRepo.saveAndFlush(updateRole);
+
             ReponseMessage message = new ReponseMessage("Rôle modifier avec succes", true);
             return  message;
         }else {
@@ -66,6 +70,7 @@ public class AdminServiceImpl implements AdminService {
     public ReponseMessage supprimerRole(Long idrole) {
         if (roleRepo.findByIdrole(idrole) != null){
             roleRepo.deleteById(idrole);
+
             ReponseMessage message = new ReponseMessage("Rôle Supprimer avec succes", true);
             return  message;
         }else {
@@ -129,6 +134,7 @@ public class AdminServiceImpl implements AdminService {
             updateUser.setNumero(user.getNumero());
             updateUser.setRole(user.getRole());
             userRepo.saveAndFlush(updateUser);
+
             ReponseMessage message = new ReponseMessage("User modifier avec succes", true);
             return  message;
         }else {
@@ -150,6 +156,7 @@ public class AdminServiceImpl implements AdminService {
     public ReponseMessage supprimerUtilisateur(Long iduser) {
         if (userRepo.findByIduser(iduser) != null){
             userRepo.deleteById(iduser);
+
             ReponseMessage message = new ReponseMessage("utilisateur Supprimer avec succes", true);
             return  message;
         }else {
@@ -193,6 +200,7 @@ public class AdminServiceImpl implements AdminService {
     public ReponseMessage ajouterEtat(Etat etat) {
         if (etatRepo.findByContenu(etat.getContenu()) == null){
             etatRepo.save(etat);
+
             ReponseMessage message = new ReponseMessage("etat ajouté avec succes", true);
             return  message;
         }else {
@@ -209,6 +217,7 @@ public class AdminServiceImpl implements AdminService {
             Etat updateEtat = etatRepo.findById(idetat).get();
             updateEtat.setContenu(etat.getContenu());
             etatRepo.saveAndFlush(updateEtat);
+
             ReponseMessage message = new ReponseMessage("Etat modifier avec succes", true);
             return  message;
         }else {
@@ -223,6 +232,7 @@ public class AdminServiceImpl implements AdminService {
     public ReponseMessage supprimerEtat(Long idetat) {
         if (etatRepo.findByIdetat(idetat) != null){
             etatRepo.deleteById(idetat);
+
             ReponseMessage message = new ReponseMessage("etat Supprimer avec succes", true);
             return  message;
         }else {
@@ -252,4 +262,157 @@ public class AdminServiceImpl implements AdminService {
 
         return etatRepo.findByContenu(contenu);
     }//================FIN DE LA METHODE PERMETTANT DE RETROUVER UN ETAT PAR SON CONTENU ======================
+
+
+    //================FIN DE LA GESTION DES ETATS======================
+
+    //================DEBUT DE LA GESTION DES ACTEURS======================
+
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN ACTEUR======================
+    @Override
+    public ReponseMessage ajouterActeur(Acteur acteur) {
+        if (acteurRepo.findByNom(acteur.getNom()) == null){
+            acteurRepo.save(acteur);
+
+            ReponseMessage message = new ReponseMessage("Acteur ajouté avec succes", true);
+            return  message;
+        }else {
+            ReponseMessage message = new ReponseMessage("Cet Acteur existe déjà ", false);
+
+            return message;
+        }
+    }//================FIN DE LA METHODE PERMETTANT D'AJOUTER UN ACTEUR======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER UN ACTEUR======================
+    @Override
+    public ReponseMessage modifierActeur(Acteur acteur, Long idacteur) {
+        if (acteurRepo.findByIdacteur(idacteur) != null){
+            Acteur updateActeur = acteurRepo.findById(idacteur).get();
+            updateActeur.setNom(acteur.getNom());
+           // updateActeur.setEvennements(acteur.getEvennements());
+            acteurRepo.saveAndFlush(updateActeur);
+
+            ReponseMessage message = new ReponseMessage("Acteur modifier avec succes", true);
+            return  message;
+        }else {
+            ReponseMessage message = new ReponseMessage("Cet acteur n'existe pas ", false);
+
+            return message;
+        }
+    } //================FIN DE LA METHODE PERMETTANT DE MODIFIER UN ACTEUR======================
+
+
+    //================DEBUT DE LA METHODE PERMETTANT DE SUPPRIMER UN ACTEUR======================
+    @Override
+    public ReponseMessage supprimerActeur(Long id) {
+        if (acteurRepo.findByIdacteur(id) != null){
+            acteurRepo.deleteById(id);
+
+            ReponseMessage message = new ReponseMessage("Acteur Supprimer avec succes", true);
+            return  message;
+        }else {
+            ReponseMessage message = new ReponseMessage("Cet acteur n'existe pas ", false);
+
+            return message;
+        }
+    }//================FIN DE LA METHODE PERMETTANT DE SUPPRIMER UN ACTEUR======================
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AFFICHER LES ACTEURS DE LA BASE DE DONNE======================
+    @Override
+    public List<Acteur> afficherActeur() {
+
+        return acteurRepo.findAll();
+    }//================FIN DE LA METHODE PERMETTANT D'AFFICHER LES ACTEURS DE LA BASE DE DONNE======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE RETROUVER UN ACTEUR PAR SON ID======================
+    @Override
+    public Acteur trouverActeurParid(Long idacteur) {
+
+        return acteurRepo.findByIdacteur(idacteur);
+    }//================FIN DE LA METHODE PERMETTANT DE RETROUVER UN ACTEUR PAR SON ID======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE RETROUVER UN ACTEUR PAR SON NOM======================
+    @Override
+    public Acteur trouverActeurParNom(String nom) {
+
+        return acteurRepo.findByNom(nom);
+    }//================FIN DE LA METHODE PERMETTANT DE RETROUVER UN ACTEUR PAR SON NOM======================
+
+
+    //================FIN DE LA GESTION DES ACTEURS======================
+
+    //================DEBUT DE LA GESTION DES LIEUS======================
+
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN LIEU======================
+    @Override
+    public ReponseMessage ajouterLieu(Lieu lieu) {
+        if (lieuRepo.findByNom(lieu.getNom()) == null){
+            lieuRepo.save(lieu);
+
+            ReponseMessage message = new ReponseMessage("Lieu ajouté avec succes", true);
+            return  message;
+        }else {
+            ReponseMessage message = new ReponseMessage("Cet lieu existe déjà ", false);
+
+            return message;
+        }
+    } //================FIN DE LA METHODE PERMETTANT D'AJOUTER UN LIEU======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER UN LIEU======================
+    @Override
+    public ReponseMessage modifierLieu(Lieu lieu, Long idlieu) {
+        if (lieuRepo.findByIdlieu(idlieu) != null){
+            Lieu updateLieu = lieuRepo.findById(idlieu).get();
+            updateLieu.setNom(lieu.getNom());
+            updateLieu.setAdress(lieu.getAdress());
+            updateLieu.setNbrPlaces(lieu.getNbrPlaces());
+            updateLieu.setLocalisation(lieu.getLocalisation());
+            lieuRepo.saveAndFlush(updateLieu);
+
+            ReponseMessage message = new ReponseMessage("Lieu modifier avec succes", true);
+            return  message;
+        }else {
+            ReponseMessage message = new ReponseMessage("Cet lieu n'existe pas ", false);
+
+            return message;
+        }
+    }//================FIN DE LA METHODE PERMETTANT DE MODIFIER UN LIEU======================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE SUPPRIMER UN LIEU======================
+    @Override
+    public ReponseMessage supprimerLieu(Long id) {
+        if (lieuRepo.findByIdlieu(id) != null){
+            lieuRepo.deleteById(id);
+
+            ReponseMessage message = new ReponseMessage("Lieu Supprimer avec succes", true);
+            return  message;
+        }else {
+            ReponseMessage message = new ReponseMessage("Cet lieu n'existe pas ", false);
+
+            return message;
+        }
+    }//================FIN DE LA METHODE PERMETTANT DE SUPPRIMER UN LIEU======================
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AFFICHER LES LIEUS DE LA BASE DE DONNER=========================
+    @Override
+    public List<Lieu> afficherLieu() {
+
+        return lieuRepo.findAll();
+    }//================FIN DE LA METHODE PERMETTANT D'AFFICHER LES LIEUS DE LA BASE DE DONNER=========================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON ID=========================
+    @Override
+    public Lieu trouverLieuParid(Long idlieu) {
+
+        return lieuRepo.findByIdlieu(idlieu);
+    }//================FIN DE LA METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON ID=========================
+
+    //================DEBUT DE LA METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON NOM=========================
+    @Override
+    public Lieu trouverLieuParNom(String nom) {
+
+        return lieuRepo.findByNom(nom);
+    }//================FIN DE LA METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON NOM=========================
 }

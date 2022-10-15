@@ -1,9 +1,7 @@
 package eventticket.com.event.services;
 
 import eventticket.com.event.message.ReponseMessage;
-import eventticket.com.event.modele.Etat;
-import eventticket.com.event.modele.Role;
-import eventticket.com.event.modele.User;
+import eventticket.com.event.modele.*;
 
 import java.util.List;
 
@@ -67,4 +65,43 @@ public interface AdminService {
 
     //================METHODE PERMETTANT DE RETROUVER UN ETAT PAR SON CONTENU=========================
     Etat trouverEtatParContenu(String contenu);
+
+
+
+    //================METHODE PERMETTANT D'AJOUTER UN ACTEUR=========================
+    ReponseMessage ajouterActeur(Acteur acteur);
+
+    //================METHODE PERMETTANT DE MODIFIER UN ACTEUR=========================
+    ReponseMessage modifierActeur(Acteur acteur, Long idacteur);
+
+    //================METHODE PERMETTANT DE SUPPRIMER UN ACTEUR=========================
+    ReponseMessage supprimerActeur(Long id);
+
+    //================METHODE PERMETTANT D'AFFICHER UN ACTEUR=========================
+    List<Acteur> afficherActeur();
+
+    //================METHODE PERMETTANT DE RETROUVER UN ACTEUR PAR SON ID=========================
+    Acteur trouverActeurParid(Long idacteur);
+
+    //================METHODE PERMETTANT DE RETROUVER UN ACTEUR PAR SON NOM=========================
+    Acteur trouverActeurParNom(String nom);
+
+
+    //================METHODE PERMETTANT D'AJOUTER UN LIEU=========================
+    ReponseMessage ajouterLieu(Lieu lieu);
+
+    //================METHODE PERMETTANT DE MODIFIER UN LIEU=========================
+    ReponseMessage modifierLieu(Lieu lieu, Long idlieu);
+
+    //================METHODE PERMETTANT DE SUPPRIMER UN LIEU=========================
+    ReponseMessage supprimerLieu(Long id);
+
+    //================METHODE PERMETTANT D'AFFICHER LES LIEUS DE LA BASE DE DONNER=========================
+    List<Lieu> afficherLieu();
+
+    //================METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON ID=========================
+    Lieu trouverLieuParid(Long idlieu);
+
+    //================METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON NOM=========================
+    Lieu trouverLieuParNom(String nom);
 }
