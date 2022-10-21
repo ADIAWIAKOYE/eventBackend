@@ -7,5 +7,5 @@ public interface LieuRepo extends JpaRepository<Lieu, Long> {
 
     Lieu findByIdlieu(Long idlieu);
 
-    Lieu findByNom(String nom);
+    Lieu findByNomlieu(String nomlieu);
 }

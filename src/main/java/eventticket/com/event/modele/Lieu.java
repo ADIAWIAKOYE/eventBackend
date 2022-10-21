@@ -20,8 +20,8 @@ public class Lieu {
 
     //id de la table lieu
     private Long idlieu;
-    private String nom;
-    private String localisation;
+    private String nomlieu;
+    //private String localisation;
     private String adress;
     private int nbrPlaces;
 }

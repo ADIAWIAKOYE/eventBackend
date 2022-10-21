@@ -26,6 +26,7 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private LieuRepo lieuRepo;
 
+
     //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN ROLE======================
     @Override
     public ReponseMessage ajouterRole(Role role) {
@@ -272,7 +273,7 @@ public class AdminServiceImpl implements AdminService {
     //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN ACTEUR======================
     @Override
     public ReponseMessage ajouterActeur(Acteur acteur) {
-        if (acteurRepo.findByNom(acteur.getNom()) == null){
+        if (acteurRepo.findByNomacteur(acteur.getNomacteur()) == null){
             acteurRepo.save(acteur);
 
             ReponseMessage message = new ReponseMessage("Acteur ajouté avec succes", true);
@@ -289,7 +290,7 @@ public class AdminServiceImpl implements AdminService {
     public ReponseMessage modifierActeur(Acteur acteur, Long idacteur) {
         if (acteurRepo.findByIdacteur(idacteur) != null){
             Acteur updateActeur = acteurRepo.findById(idacteur).get();
-            updateActeur.setNom(acteur.getNom());
+            updateActeur.setNomacteur(acteur.getNomacteur());
            // updateActeur.setEvennements(acteur.getEvennements());
             acteurRepo.saveAndFlush(updateActeur);
 
@@ -336,7 +337,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Acteur trouverActeurParNom(String nom) {
 
-        return acteurRepo.findByNom(nom);
+        return acteurRepo.findByNomacteur(nom);
     }//================FIN DE LA METHODE PERMETTANT DE RETROUVER UN ACTEUR PAR SON NOM======================
 
 
@@ -348,7 +349,7 @@ public class AdminServiceImpl implements AdminService {
     //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN LIEU======================
     @Override
     public ReponseMessage ajouterLieu(Lieu lieu) {
-        if (lieuRepo.findByNom(lieu.getNom()) == null){
+        if (lieuRepo.findByNomlieu(lieu.getNomlieu()) == null){
             lieuRepo.save(lieu);
 
             ReponseMessage message = new ReponseMessage("Lieu ajouté avec succes", true);
@@ -365,10 +366,10 @@ public class AdminServiceImpl implements AdminService {
     public ReponseMessage modifierLieu(Lieu lieu, Long idlieu) {
         if (lieuRepo.findByIdlieu(idlieu) != null){
             Lieu updateLieu = lieuRepo.findById(idlieu).get();
-            updateLieu.setNom(lieu.getNom());
+            updateLieu.setNomlieu(lieu.getNomlieu());
             updateLieu.setAdress(lieu.getAdress());
             updateLieu.setNbrPlaces(lieu.getNbrPlaces());
-            updateLieu.setLocalisation(lieu.getLocalisation());
+           // updateLieu.setLocalisation(lieu.getLocalisation());
             lieuRepo.saveAndFlush(updateLieu);
 
             ReponseMessage message = new ReponseMessage("Lieu modifier avec succes", true);
@@ -411,8 +412,10 @@ public class AdminServiceImpl implements AdminService {
 
     //================DEBUT DE LA METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON NOM=========================
     @Override
-    public Lieu trouverLieuParNom(String nom) {
+    public Lieu trouverLieuParNom(String nomlieu) {
 
-        return lieuRepo.findByNom(nom);
+        return lieuRepo.findByNomlieu(nomlieu);
     }//================FIN DE LA METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON NOM=========================
+
+
 }

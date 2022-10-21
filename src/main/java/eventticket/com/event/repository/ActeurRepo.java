@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ActeurRepo extends JpaRepository<Acteur, Long> {
 
-    Acteur findByNom(String nom);
+    Acteur findByNomacteur(String nomacteur);
 
     Acteur findByIdacteur(Long idacteur);
 }

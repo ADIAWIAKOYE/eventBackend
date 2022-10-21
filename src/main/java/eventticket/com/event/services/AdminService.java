@@ -103,5 +103,9 @@ public interface AdminService {
     Lieu trouverLieuParid(Long idlieu);
 
     //================METHODE PERMETTANT DE RETROUVER UN LIEU PAR SON NOM=========================
-    Lieu trouverLieuParNom(String nom);
+    Lieu trouverLieuParNom(String nomlieu);
+
+
+
+
 }

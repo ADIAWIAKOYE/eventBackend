@@ -24,7 +24,7 @@ public class Evennement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long idevent;
-    private String nom;
+    private String nomevent;
     private String desciption;
     private Date dateStart;
     private LocalTime timeStart;
@@ -50,4 +50,7 @@ public class Evennement {
     )
 
     private List<Acteur> acteurs = new ArrayList<>();
+
+    @ManyToOne
+    private Lieu lieu;
 }

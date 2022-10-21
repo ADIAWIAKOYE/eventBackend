@@ -23,7 +23,7 @@ public class Acteur {
 
     //id de l'Acteur
     private Long idacteur;
-    private String nom;
+    private String nomacteur;
 
 
     @ManyToMany(
