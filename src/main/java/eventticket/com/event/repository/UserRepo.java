@@ -14,6 +14,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
     User findByIduser(Long iduser);
+
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO user (nom, prenom, email, numero, pseudo, profile, password, role_idrole)  VALUES(\"ADIAWIAKOYE\", \"Ahmadou\", \"adiawiakoye.le10@gmail.com\",  \"676665554\",  \"Diadie\",  \"monProfile.png\",  \"mot de passe\", 1);",nativeQuery = true)

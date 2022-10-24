@@ -1,5 +1,6 @@
 package eventticket.com.event.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.apache.naming.java.javaURLContextFactory;
 
@@ -35,7 +36,7 @@ public class Evennement {
     private Boolean ticketDispo;
     private String categorie;
 
-
+    @JsonIgnore
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {
@@ -53,4 +54,7 @@ public class Evennement {
 
     @ManyToOne
     private Lieu lieu;
+
+    @ManyToOne
+    private Etat etat;
 }

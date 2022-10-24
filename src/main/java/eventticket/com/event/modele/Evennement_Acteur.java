@@ -17,4 +17,12 @@ public class Evennement_Acteur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "idevent")
+    private Evennement evennement;
+
+    @ManyToOne
+    @JoinColumn(name = "idacteur")
+    private Acteur acteur;
 }

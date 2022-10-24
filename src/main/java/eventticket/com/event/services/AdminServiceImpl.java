@@ -97,7 +97,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public ReponseMessage ajouterUtilisateurU(User user, String nomrole) {
         if (userRepo.findByEmail(user.getEmail()) == null){
-            Role role = new Role();
+
 
             if (roleRepo.findByNomrole(nomrole) == null){
 
@@ -106,7 +106,7 @@ public class AdminServiceImpl implements AdminService {
                 return message;
 
             }else {
-                role=roleRepo.findByNomrole(nomrole);
+                Role role =roleRepo.findByNomrole(nomrole);
                 user.setRole(role);
                 userRepo.save(user);
             }

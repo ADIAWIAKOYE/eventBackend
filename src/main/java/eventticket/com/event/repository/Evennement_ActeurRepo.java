@@ -1,11 +1,13 @@
 package eventticket.com.event.repository;
 
+import eventticket.com.event.modele.Evennement_Acteur;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
 
-public interface Evennement_ActeurRepo {
+public interface Evennement_ActeurRepo extends JpaRepository<Evennement_Acteur, Long> {
 
     @Modifying
     @Transactional

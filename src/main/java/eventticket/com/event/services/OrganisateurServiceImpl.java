@@ -1,14 +1,16 @@
 package eventticket.com.event.services;
 
 import eventticket.com.event.message.ReponseMessage;
-import eventticket.com.event.modele.Evennement;
-import eventticket.com.event.modele.Lieu;
+import eventticket.com.event.modele.*;
+import eventticket.com.event.repository.ActeurRepo;
 import eventticket.com.event.repository.EvennementRepo;
 import eventticket.com.event.repository.Evennement_ActeurRepo;
 import eventticket.com.event.repository.LieuRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,39 +22,50 @@ public class OrganisateurServiceImpl implements OrganisateurService{
     @Autowired
     private LieuRepo lieuRepo;
 
+    @Autowired
+    private ActeurRepo acteurRepo;
 
+   /* @Autowired
+    final private AdminService adminService;
+*/
+    @Autowired
     private Evennement_ActeurRepo evennementActeurRepo;
 
     //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN EVENNEMENT======================
     @Override
     public ReponseMessage ajouterEvent(Evennement evennement, String idacteur, String nomlieu) {
-           if (evennementRepo.findByNomevent(evennement.getNomevent()) == null){
+            if (evennementRepo.findByNomevent(evennement.getNomevent()) == null || evennementRepo.findByDateStart(evennement.getDateStart()) == null) {
                evennement.setTicketDispo(false);
-               Lieu lieu = new Lieu();
-               Evennement even = evennementRepo.save(evennement);
 
-               if (lieuRepo.findByNomlieu(nomlieu) == null){
+               if (lieuRepo.findByNomlieu(nomlieu) == null) {
                    ReponseMessage message = new ReponseMessage("Cet lieu n'existe pas  ", false);
-
                    return message;
-               }else{
-                   lieu = lieuRepo.findByNomlieu(nomlieu);
+               } else {
+                   Lieu lieu = lieuRepo.findByNomlieu(nomlieu);
                    evennement.setLieu(lieu);
+
+               String[] acteurTab = idacteur.split(",");
+               boolean bol = true;
+               for (String te : acteurTab) {
+
+                   long l = Long.parseLong(te);
+                   Acteur acteur = acteurRepo.findByIdacteur(l);
+                   evennement.getActeurs().add(acteur);
+             }
+               if (bol == false) {
+
+                   ReponseMessage message = new ReponseMessage("Un des acteur n'existe pas", true);
+                   return message;
                }
-               if (idacteur.contains("")){
+                   Etat etat = new Etat();
 
-               }else {
-                   String[] allIdacteur = idacteur.split(",");
-                   System.out.println(allIdacteur);
+                   etat.setIdetat(1l);
 
-                   for (String idact : allIdacteur){
+                   evennement.setEtat(etat);
 
-                       long l = Long.parseLong(idact);
-
-                       evennementActeurRepo.INSERT_EVENNEMENT_ACTEUR(l,even.getIdevent());
-                   }
-               }
-               ReponseMessage message = new ReponseMessage("Evennement ajoutée avec succes", true);
+                   evennementRepo.save(evennement);
+           }
+               ReponseMessage message = new ReponseMessage("Evennement ajouter avec succes", true);
                return  message;
            }else {
                ReponseMessage message = new ReponseMessage("Cet evennement existe déjà ", false);
@@ -61,7 +74,7 @@ public class OrganisateurServiceImpl implements OrganisateurService{
            }
     }//================FIN DE LA METHODE PERMETTANT D'AJOUTER UN EVENNEMENT======================
 
-    //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER UN EVENNEMENT======================
+      //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER UN EVENNEMENT======================
     @Override
     public ReponseMessage modifierEvent(Evennement evennement, Long idevent) {
             if (evennementRepo.findByIdevent(idevent) != null){
@@ -122,4 +135,9 @@ public class OrganisateurServiceImpl implements OrganisateurService{
 
         return evennementRepo.findByNomevent(nomevent);
     } //================FIN DE LA METHODE PERMETTANT DE RETROUVER UN EVENNEMENT PAR SON NOM======================
+
+    @Override
+    public Evennement truverEventParDateStart(Date dateStart) {
+        return evennementRepo.findByDateStart(dateStart);
+    }
 }

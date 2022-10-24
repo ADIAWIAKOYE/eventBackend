@@ -3,6 +3,7 @@ package eventticket.com.event.services;
 import eventticket.com.event.message.ReponseMessage;
 import eventticket.com.event.modele.Evennement;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrganisateurService {
@@ -24,4 +25,6 @@ public interface OrganisateurService {
 
     //================METHODE PERMETTANT DE RETROUVER UN EVENNEMENT PAR SON NOM=========================
     Evennement trouverEventParNom(String nomevent);
+
+    Evennement truverEventParDateStart(Date dateStart);
 }
