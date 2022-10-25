@@ -1,7 +1,6 @@
 package eventticket.com.event.modele;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +10,9 @@ import java.util.Date;
 //definis le nom de la table
 @Table(name = "ticket")
 //permet d'inclure les getter et setter
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 //paramettre sans arguments
 @NoArgsConstructor
 public class Ticket {

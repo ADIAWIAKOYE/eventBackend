@@ -1,10 +1,11 @@
 package eventticket.com.event.modele;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 import org.apache.naming.java.javaURLContextFactory;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -17,7 +18,11 @@ import java.util.Timer;
 //definis le nom de la table
 @Table(name = "evennement")
 //permet d'inclur les getter
-@Data
+//@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 //paramettre sans argument
 public class Evennement {
 
@@ -57,4 +62,7 @@ public class Evennement {
 
     @ManyToOne
     private Etat etat;
+
+    //@ManyToOne
+    //private User user;
 }

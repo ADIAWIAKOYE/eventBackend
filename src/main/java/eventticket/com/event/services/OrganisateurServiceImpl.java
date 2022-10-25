@@ -9,7 +9,9 @@ import eventticket.com.event.repository.LieuRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -34,45 +36,47 @@ public class OrganisateurServiceImpl implements OrganisateurService{
     //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UN EVENNEMENT======================
     @Override
     public ReponseMessage ajouterEvent(Evennement evennement, String idacteur, String nomlieu) {
-            if (evennementRepo.findByNomevent(evennement.getNomevent()) == null || evennementRepo.findByDateStart(evennement.getDateStart()) == null) {
-               evennement.setTicketDispo(false);
 
-               if (lieuRepo.findByNomlieu(nomlieu) == null) {
-                   ReponseMessage message = new ReponseMessage("Cet lieu n'existe pas  ", false);
-                   return message;
-               } else {
-                   Lieu lieu = lieuRepo.findByNomlieu(nomlieu);
-                   evennement.setLieu(lieu);
+        List<Evennement> eventnom = evennementRepo.findByNomevent(evennement.getNomevent());
+        for (Evennement nomevent : eventnom) {
 
-               String[] acteurTab = idacteur.split(",");
-               boolean bol = true;
-               for (String te : acteurTab) {
+            if (nomevent.getDateStart() == evennement.getDateStart()) {
 
-                   long l = Long.parseLong(te);
-                   Acteur acteur = acteurRepo.findByIdacteur(l);
-                   evennement.getActeurs().add(acteur);
-             }
-               if (bol == false) {
+                ReponseMessage message = new ReponseMessage("Cet evennement existe déjà ", false);
+                return message;
+            }
+        }
+                evennement.setTicketDispo(false);
 
-                   ReponseMessage message = new ReponseMessage("Un des acteur n'existe pas", true);
-                   return message;
-               }
-                   Etat etat = new Etat();
+                if (lieuRepo.findByNomlieu(nomlieu) == null) {
+                    ReponseMessage message = new ReponseMessage("Cet lieu n'existe pas  ", false);
+                    return message;
+                } else {
+                    Lieu lieu = lieuRepo.findByNomlieu(nomlieu);
+                    evennement.setLieu(lieu);
 
-                   etat.setIdetat(1l);
+                    String[] acteurTab = idacteur.split(",");
+                    for (String te : acteurTab) {
+                        long l = Long.parseLong(te);
 
-                   evennement.setEtat(etat);
+                        Acteur acteur = acteurRepo.findByIdacteur(l);
+                        if (acteur == null) {
+                            ReponseMessage message = new ReponseMessage("Un des acteur n'existe pas", true);
+                            return message;
+                        }
+                        evennement.getActeurs().add(acteur);
+                    }
+                    Etat etat = new Etat();
 
-                   evennementRepo.save(evennement);
-           }
-               ReponseMessage message = new ReponseMessage("Evennement ajouter avec succes", true);
-               return  message;
-           }else {
-               ReponseMessage message = new ReponseMessage("Cet evennement existe déjà ", false);
+                    etat.setIdetat(1l);
 
-               return message;
-           }
-    }//================FIN DE LA METHODE PERMETTANT D'AJOUTER UN EVENNEMENT======================
+                    evennement.setEtat(etat);
+
+                    evennementRepo.save(evennement);
+                }
+                ReponseMessage message = new ReponseMessage("Evennement ajouter avec succes", true);
+                return message;
+            } //================FIN DE LA METHODE PERMETTANT D'AJOUTER UN EVENNEMENT======================
 
       //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER UN EVENNEMENT======================
     @Override
@@ -131,13 +135,18 @@ public class OrganisateurServiceImpl implements OrganisateurService{
 
     //================DEBUT DE LA METHODE PERMETTANT DE RETROUVER UN EVENNEMENT PAR SON NOM======================
     @Override
-    public Evennement trouverEventParNom(String nomevent) {
+     public List<Evennement>trouverEventParNom(String nomevent) {
 
         return evennementRepo.findByNomevent(nomevent);
     } //================FIN DE LA METHODE PERMETTANT DE RETROUVER UN EVENNEMENT PAR SON NOM======================
 
     @Override
-    public Evennement truverEventParDateStart(Date dateStart) {
+    public Evennement trouverEventParNomDateStart(String nomevent, Date dateStart) {
+        return evennementRepo.findByNomeventAndDateStart(nomevent, dateStart);
+    }
+
+    @Override
+    public Evennement truverEventParDateStart(LocalDate dateStart) {
         return evennementRepo.findByDateStart(dateStart);
     }
 }

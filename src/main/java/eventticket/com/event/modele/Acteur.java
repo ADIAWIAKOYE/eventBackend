@@ -1,7 +1,6 @@
 package eventticket.com.event.modele;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +11,10 @@ import java.util.List;
 //definir le nom de la table
 @Table(name = "acteur")
 //permet d'inclure les getter et setter
-@Data
+//@Data
+@Getter
+@Setter
+@AllArgsConstructor
 //paramettre sans arguments
 @NoArgsConstructor
 
