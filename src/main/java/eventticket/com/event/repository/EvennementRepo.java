@@ -13,6 +13,8 @@ public interface EvennementRepo extends JpaRepository<Evennement, Long> {
 
    List <Evennement> findByNomevent(String nomevent);
 
+    //  Evennement findByNomevent(String nomevent);
+
     Evennement findByDateStart(LocalDate dateStart);
 
     Evennement findByNomeventAndDateStart(String nomevent, Date dateStart);

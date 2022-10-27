@@ -2,10 +2,7 @@ package eventticket.com.event.services;
 
 import eventticket.com.event.message.ReponseMessage;
 import eventticket.com.event.modele.*;
-import eventticket.com.event.repository.ActeurRepo;
-import eventticket.com.event.repository.EvennementRepo;
-import eventticket.com.event.repository.Evennement_ActeurRepo;
-import eventticket.com.event.repository.LieuRepo;
+import eventticket.com.event.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +23,9 @@ public class OrganisateurServiceImpl implements OrganisateurService{
 
     @Autowired
     private ActeurRepo acteurRepo;
+
+    @Autowired
+    private CategorieTicketRepo categorieTicketRepo;
 
    /* @Autowired
     final private AdminService adminService;
@@ -147,6 +147,83 @@ public class OrganisateurServiceImpl implements OrganisateurService{
 
     @Override
     public Evennement truverEventParDateStart(LocalDate dateStart) {
+
         return evennementRepo.findByDateStart(dateStart);
+    }
+
+    @Override
+    public ReponseMessage ajouterCategorieTicket(CategorieTicket categorieTicket, Long idevent) {
+        List<CategorieTicket> catTicket = categorieTicketRepo.findByDescription(categorieTicket.getDescription());
+        Evennement event = evennementRepo.findByIdevent(idevent);
+         categorieTicket.setEvennement(event);
+        for (CategorieTicket cateTicket : catTicket){
+            if (cateTicket.getEvennement() == categorieTicket.getEvennement()){
+                ReponseMessage message = new ReponseMessage("Cet categorie existe déjà pour cet evennement ", false);
+                return message;
+            }
+        }
+        if (evennementRepo.findByIdevent(idevent) == null) {
+            ReponseMessage message = new ReponseMessage("Cet evennement n'existe pas  ", false);
+            return message;
+        }
+        else {
+            Evennement evente = evennementRepo.findByIdevent(idevent);
+            categorieTicket.setEvennement(evente);
+            categorieTicketRepo.save(categorieTicket);
+        }
+        ReponseMessage message = new ReponseMessage("categorie ajouter avec succes", true);
+        return message;
+    }
+
+    @Override
+    public ReponseMessage modifierCategorieTicket(CategorieTicket categorieTicket, Long idcategorie) {
+        if (categorieTicketRepo.findByIdcategorie(idcategorie) != null){
+            CategorieTicket updateCategorieTicket = categorieTicketRepo.findById(idcategorie).get();
+
+            updateCategorieTicket.setDescription(categorieTicket.getDescription());
+            updateCategorieTicket.setPrixcat(categorieTicket.getPrixcat());
+            updateCategorieTicket.setNbrticket(categorieTicket.getNbrticket());
+            updateCategorieTicket.setEvennement(categorieTicket.getEvennement());
+
+            categorieTicketRepo.saveAndFlush(updateCategorieTicket);
+            ReponseMessage message = new ReponseMessage("Categorie modifier avec succes", true);
+            return  message;
+        }else {
+            ReponseMessage message = new ReponseMessage("Cet Categorie n'existe pas ", false);
+
+            return message;
+        }
+    }
+
+    @Override
+    public ReponseMessage supprimerCategorieTicket(Long idcategorie) {
+        if (categorieTicketRepo.findByIdcategorie(idcategorie) != null){
+            categorieTicketRepo.deleteById(idcategorie);
+
+            ReponseMessage message = new ReponseMessage("Categorie supprimer avec succes", true);
+            return  message;
+        }else {
+            ReponseMessage message = new ReponseMessage("Cet Categorie n'existe pas ", false);
+
+            return message;
+        }
+    }
+
+    @Override
+    public List<CategorieTicket> afficherCategorieTicket() {
+
+        return categorieTicketRepo.findAll();
+    }
+
+    @Override
+    public CategorieTicket trouverCategorieTicketParid(Long idcategorie) {
+
+        return categorieTicketRepo.findByIdcategorie(idcategorie);
+    }
+
+    @Override
+    public List <CategorieTicket> trouverCategorieTicketParNom(String categorie) {
+
+        return categorieTicketRepo.findByDescription(categorie);
     }
 }
