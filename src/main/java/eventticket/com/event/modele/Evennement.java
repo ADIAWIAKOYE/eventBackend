@@ -32,9 +32,9 @@ public class Evennement {
     private Long idevent;
     private String nomevent;
     private String desciption;
-    private Date dateStart;
+    private LocalDate dateStart;
     private LocalTime timeStart;
-    private Date dateEnd;
+    private LocalDate dateEnd;
     private LocalTime timeEnd;
     private String affiche;
     private int nbreTicketDispo;

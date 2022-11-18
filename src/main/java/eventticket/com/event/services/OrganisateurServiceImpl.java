@@ -38,9 +38,13 @@ public class OrganisateurServiceImpl implements OrganisateurService{
     public ReponseMessage ajouterEvent(Evennement evennement, String idacteur, String nomlieu) {
 
         List<Evennement> eventnom = evennementRepo.findByNomevent(evennement.getNomevent());
+
         for (Evennement nomevent : eventnom) {
 
-            if (nomevent.getDateStart() == evennement.getDateStart()) {
+            System.out.println("le nom de l'evennement est "+nomevent.getDateStart());
+            System.out.println("le nom1 de l'evennement est "+evennement.getDateStart());
+
+            if (nomevent.getDateStart().equals(evennement.getDateStart()) ) {
 
                 ReponseMessage message = new ReponseMessage("Cet evennement existe déjà ", false);
                 return message;
