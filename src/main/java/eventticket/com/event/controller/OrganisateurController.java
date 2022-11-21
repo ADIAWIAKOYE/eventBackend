@@ -51,12 +51,6 @@ public class OrganisateurController {
         return organisateurService.afficherEvent();
     }//=================FIN DE LA METHODE PERMETTANT D'AFFICHER LES EVENNEMENTS DE LA BASE DE DONNER=========================
 
-    @PostMapping("/ajouterCategorieTicket/{idevent}")
-    public ReponseMessage ajouterCategorieTicket(@RequestBody CategorieTicket categorieTicket, @PathVariable Long idevent) {
-
-        return organisateurService.ajouterCategorieTicket(categorieTicket, idevent);
-    }
-
     @PostMapping("/ajouterEvent2/{nomlieu}/{idacteur}/{nbreTicketDispo}")
     public ReponseMessage creerEvent2(@Param("nomevent") String nomevent, @Param("desciption") String desciption, @Param("dateStart") LocalDate dateStart
             , @Param("timeStart") LocalTime timeStart, @Param("dateEnd") LocalDate dateEnd, @Param("timeEnd") LocalTime timeEnd, @PathVariable("nbreTicketDispo") int nbreTicketDispo
@@ -77,5 +71,29 @@ public class OrganisateurController {
         String uploaDirEvent = "src/main/resources/fileEvent/";
         ComfigImage.saveimgEvent(uploaDirEvent, nomfileEvent, fileUser);
         return organisateurService.ajouterEvent(evennement, idacteur, nomlieu);
+    }
+
+    @PostMapping("/ajouterCategorieTicket/{idevent}")
+    public ReponseMessage ajouterCategorieTicket(@RequestBody CategorieTicket categorieTicket, @PathVariable Long idevent) {
+
+        return organisateurService.ajouterCategorieTicket(categorieTicket, idevent);
+    }
+
+    @PutMapping("/modifierCategorieTicket/{idcategorie}")
+    public ReponseMessage modifierCategorieTicket(@RequestBody CategorieTicket categorieTicket, @PathVariable Long idcategorie) {
+
+        return organisateurService.modifierCategorieTicket(categorieTicket, idcategorie);
+    }
+
+    @DeleteMapping("/supprimerCategorieTicket/{idcategorie}")
+    public ReponseMessage supprimerCategorieTicket(@PathVariable Long idcategorie) {
+
+        return organisateurService.supprimerCategorieTicket(idcategorie);
+    }
+
+    @GetMapping("/afficherCategorieTicket")
+    public List<CategorieTicket> afficherCategorieTicket() {
+
+     return organisateurService.afficherCategorieTicket();
     }
 }

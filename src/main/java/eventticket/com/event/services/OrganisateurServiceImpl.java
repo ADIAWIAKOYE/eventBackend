@@ -153,7 +153,15 @@ public class OrganisateurServiceImpl implements OrganisateurService{
     public Evennement truverEventParDateStart(LocalDate dateStart) {
 
         return evennementRepo.findByDateStart(dateStart);
-    }
+    }//================FIN DE LA METHODE PERMETTANT DE RETROUVER UN EVENNEMENT PAR SA DATE DATE DE DEBUT======================
+
+
+    //================FIN DE LA GESTION DES EVENNEMENT======================
+
+    //================DEBUT DE LA GESTION DES CATEGORIES DE TICKET======================
+
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AJOUTER UNE CATEGORIE DE TICKET======================
 
     @Override
     public ReponseMessage ajouterCategorieTicket(CategorieTicket categorieTicket, Long idevent) {
@@ -177,8 +185,10 @@ public class OrganisateurServiceImpl implements OrganisateurService{
         }
         ReponseMessage message = new ReponseMessage("categorie ajouter avec succes", true);
         return message;
-    }
+    }//================FIN DE LA METHODE PERMETTANT D'AJOUTER UNE CATEGORIE DE TICKET======================
 
+
+     //================DEBUT DE LA METHODE PERMETTANT DE MODIFIER  UNE CATEGORIE DE TICKET======================
     @Override
     public ReponseMessage modifierCategorieTicket(CategorieTicket categorieTicket, Long idcategorie) {
         if (categorieTicketRepo.findByIdcategorie(idcategorie) != null){
@@ -197,8 +207,10 @@ public class OrganisateurServiceImpl implements OrganisateurService{
 
             return message;
         }
-    }
+    }//================FIN DE LA METHODE PERMETTANT DE MODIFIER  UNE CATEGORIE DE TICKET======================
 
+
+    //================DEBUT DE LA METHODE PERMETTANT DE SUPPRIMER UNE CATEGORIE DE TICKET======================
     @Override
     public ReponseMessage supprimerCategorieTicket(Long idcategorie) {
         if (categorieTicketRepo.findByIdcategorie(idcategorie) != null){
@@ -211,13 +223,15 @@ public class OrganisateurServiceImpl implements OrganisateurService{
 
             return message;
         }
-    }
+    }//================FIN DE LA METHODE PERMETTANT DE SUPPRIMER UNE CATEGORIE DE TICKET======================
 
+
+    //================DEBUT DE LA METHODE PERMETTANT D'AFFICHER LES CATEGORIES DE TICKET======================
     @Override
     public List<CategorieTicket> afficherCategorieTicket() {
 
         return categorieTicketRepo.findAll();
-    }
+    } //================FIN DE LA METHODE PERMETTANT D'AFFICHER LES CATEGORIES DE TICKET======================
 
     @Override
     public CategorieTicket trouverCategorieTicketParid(Long idcategorie) {

@@ -25,5 +25,10 @@ public class Ticket {
     private String numserie;
     private Date dateachat;
 
+    @ManyToOne
+    private CategorieTicket categorieTicket;
+
+    @ManyToOne
+    private User user;
     
 }
