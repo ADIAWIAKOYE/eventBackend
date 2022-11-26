@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ClientService {
 
-    ReponseMessage acheterTicket(Ticket ticket);
+    ReponseMessage acheterTicket(Ticket ticket, Long id);
 
     List<CategorieTicket> afficherTicket();
 }

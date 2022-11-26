@@ -24,6 +24,7 @@ public class Ticket {
     private Long idticket;
     private String numserie;
     private Date dateachat;
+    private boolean validerticket;
 
     @ManyToOne
     private CategorieTicket categorieTicket;
